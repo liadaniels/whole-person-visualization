@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Whole-Person Concentric — Canvas (CSV + Manual)&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="color-scheme" content="light" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html,body{margin:0;padding:16px;background:#fff !important;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1{margin:0 0 8px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.sub{color:#555;margin:0 0 16px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tabs{display:flex;gap:8px;margin-bottom:8px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tab{padding:6px 10px;border:1px solid #ccc;border-radius:8px;background:#f7f7f7;cursor:pointer}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tab.active{background:#eaeaea}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.grid{display:grid;grid-template-columns:1fr 2fr;gap:16px;align-items:start}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card{border:1px solid #ddd;border-radius:12px;padding:16px;background:#fff !important}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>label{display:block;font-weight:600;margin-top:10px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="text"],input[type="number"],textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid #ccc;border-radius:8px;margin-top:6px;background:#fff;color:#111}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="file"]{margin-top:8px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>textarea{min-height:120px;resize:vertical}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button{padding:10px 14px;border-radius:10px;border:1px solid #ccc;background:#f7f7f7;cursor:pointer;color:#111}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button:hover{background:#efefef}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>#stage{border:1px dashed #ccc;border-radius:12px;min-height:420px;display:flex;justify-content:center;align-items:center;background:#fff !important}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>canvas{background:#fff;border:1px solid #ccc;max-width:100%;height:auto}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hidden{display:none}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.header-chip{display:inline-block;padding:4px 8px;border-radius:999px;background:#f2f2f2;border:1px solid #ddd;margin:4px 6px 0 0;color:#111}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.small{font-size:.9rem;color:#666}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.log{white-space:pre-wrap;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:8px;margin-top:8px;max-height:160px;overflow:auto}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.ok{color:#075e00}.err{color:#b00020}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Whole-Person Concentric — Canvas&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sub"&gt;Upload a CSV (first row = headers) or use Manual Builder. Renders on a canvas with a forced white background.&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="tabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="tabCsv" class="tab active"&gt;CSV Upload&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="tabManual" class="tab"&gt;Manual Builder&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="csvPanel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;CSV file&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input id="file" type="file" accept=".csv,text/csv" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button id="btnTest"&gt;Load Test Data&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button id="btnParse"&gt;Parse CSV&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="small"&gt;Tip: export as CSV (UTF-8). Delimiter is auto-detected (comma / semicolon / tab).&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="manualPanel" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Headers (comma-separated)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input id="headers" type="text" value="Demographic, Strengths, Needs, Goals" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="manualAreas" class="cols"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="small"&gt;Enter one item per line. Leave blank segments empty.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label class="small" style="margin-top:12px"&gt;Wrapping width (characters)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input id="wrap" type="number" value="32" min="12" max="80" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label class="small"&gt;Max items per segment (blank = unlimited)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input id="maxItems" type="number" min="1" placeholder="" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="flex:1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="small"&gt;Header font size (px)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input id="hdrSize" type="number" value="32" min="10" max="64" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="flex:1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="small"&gt;Items font size (px)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input id="itmSize" type="number" value="26" min="10" max="64" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="render"&gt;Render&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="dlPng"&gt;Download PNG&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="msg" class="small" style="margin-top:8px"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="log" class="log small"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="stage" class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;canvas id="canvas" width="1800" height="1800"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="summary" class="small" style="margin-top:12px"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Elements</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const tabCsv = document.getElementById('tabCsv');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const tabManual = document.getElementById('tabManual');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const csvPanel = document.getElementById('csvPanel');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const manualPanel = document.getElementById('manualPanel');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fileInput = document.getElementById('file');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const btnTest = document.getElementById('btnTest');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const btnParse = document.getElementById('btnParse');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const wrapInput = document.getElementById('wrap');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const maxItemsInput = document.getElementById('maxItems');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const hdrSizeInput = document.getElementById('hdrSize');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const itmSizeInput = document.getElementById('itmSize');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const headersInput = document.getElementById('headers');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const manualAreas = document.getElementById('manualAreas');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const renderBtn = document.getElementById('render');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dlPng = document.getElementById('dlPng');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const canvas = document.getElementById('canvas');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const ctx = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const msg = document.getElementById('msg');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const log = document.getElementById('log');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const summary = document.getElementById('summary');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Tabs</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tabCsv.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tabCsv.classList.add('active'); tabManual.classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>csvPanel.classList.remove('hidden'); manualPanel.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tabManual.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tabManual.classList.add('active'); tabCsv.classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>manualPanel.classList.remove('hidden'); csvPanel.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!manualAreas.children.length){ buildManualAreas(getHeaders()); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Utils</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function logOK(m){ log.innerHTML += '&lt;div class="ok"&gt;✔ ' + escapeHtml(m) + '&lt;/div&gt;'; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function logErr(m){ log.innerHTML += '&lt;div class="err"&gt;✖ ' + escapeHtml(m) + '&lt;/div&gt;'; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function escapeHtml(s){ return (''+s).replace(/[&amp;&lt;&gt;"']/g, m =&gt; ({'&amp;':'&amp;amp;','&lt;':'&amp;lt;','&gt;':'&amp;gt;','"':'&amp;quot;',"'":'&amp;#39;'}[m]); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getHeaders(){ return (headersInput.value||'').split(',').map(s=&gt;s.trim()).filter(Boolean); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function buildManualAreas(headers){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>manualAreas.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!headers.length){ manualAreas.innerHTML = '&lt;div class="small"&gt;Enter headers above to add text areas.&lt;/div&gt;'; return; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headers.forEach(h =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>div.style.display='flex'; div.style.flexDirection='column';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const lab = document.createElement('div'); lab.textContent=h; lab.className='header-chip';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ta = document.createElement('textarea'); ta.placeholder='One item per line for "'+h+'"'; ta.dataset.header=h;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>div.appendChild(lab); div.appendChild(ta); manualAreas.appendChild(div);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// CSV</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function detectDelimiter(line){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(line.indexOf('\\t') &gt;= 0) return '\\t';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const comma=(line.match(/,/g)||[]).length, semi=(line.match(/;/g)||[]).length;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return semi &gt; comma ? ';' : ',';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseCSVText(text){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lines = text.split(/\\r?\\n/).filter(r=&gt;r.trim()!=='');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!lines.length) throw new Error('CSV appears empty.');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lines[0] = lines[0].replace(/^\\ufeff/, ''); // BOM</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const delim = detectDelimiter(lines[0]);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>function parseLine(line){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const out=[]; let cur=''; let inQ=false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(let i=0;i&lt;line.length;i++){</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const ch=line[i];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if(ch === '"'){</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(inQ &amp;&amp; i+1&lt;line.length &amp;&amp; line[i+1] === '"'){ cur+='"'; i++; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>else { inQ = !inQ; }</p>
+<p class="p1"><span class="Apple-converted-space">          </span>} else if(!inQ &amp;&amp; ((delim==='\\t' &amp;&amp; ch==='\\t') || (delim!=='\\t' &amp;&amp; ch===delim))){</p>
+<p class="p1"><span class="Apple-converted-space">            </span>out.push(cur); cur='';</p>
+<p class="p1"><span class="Apple-converted-space">          </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cur += ch;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>out.push(cur);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return out.map(s=&gt;s.trim());</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const rows = lines.map(parseLine);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const headers = rows[0].map(h=&gt;h.trim()).filter(h=&gt;h!=='');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!headers.length) throw new Error('No headers in first row.');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cols = headers.map((h,idx)=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const items=[];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for(let r=1; r&lt;rows.length; r++){</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const v = rows[r][idx];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if(v===undefined || v===null) continue;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const s=(''+v).trim();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if(!s) continue;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>items.push(s);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return { header:h, items };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return { headers, columns: cols };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Text wrap on canvas (by character count, predictable)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function wrapTextCanvas(text, x, y, maxCharsPerLine, lineHeightPx, align='center', rotRad=0){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const words=(text+'').split(/\\s+/);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lines=[]; let line='';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(const w of words){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if((line+' '+w).trim().length &lt;= maxCharsPerLine){ line=(line?line+' ':'')+w; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>else{ if(line) lines.push(line); line=w; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(line) lines.push(line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.save();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.translate(x,y);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.rotate(rotRad);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.textAlign = align;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.textBaseline = 'middle';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(let i=0;i&lt;lines.length;i++){ ctx.fillText(lines[i], 0, i*lineHeightPx); }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.restore();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function rotClamp(rad){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let rot = rad - Math.PI/2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(rot &gt; Math.PI/2) rot -= Math.PI;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(rot &lt; -Math.PI/2) rot += Math.PI;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return rot;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Render</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderModel(model){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const wrapWidth = parseInt(wrapInput.value || '32', 10);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const maxItems = maxItemsInput.value ? parseInt(maxItemsInput.value, 10) : Infinity;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const hdrSize = parseInt(hdrSizeInput.value || '32', 10);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const itmSize = parseInt(itmSizeInput.value || '26', 10);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const W=canvas.width, H=canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.clearRect(0,0,W,H);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,W,H);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.strokeStyle='#000000'; ctx.fillStyle='#000000'; ctx.lineWidth=3;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cx=W/2, cy=H/2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const rOuter = Math.min(W,H)*0.47;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const rMid <span class="Apple-converted-space">  </span>= Math.min(W,H)*0.24;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const rInner = Math.min(W,H)*0.085;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Rings</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.beginPath(); ctx.arc(cx,cy,rOuter,0,2*Math.PI); ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.beginPath(); ctx.arc(cx,cy,rMid,0,2*Math.PI); ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.beginPath(); ctx.arc(cx,cy,rInner,0,2*Math.PI); ctx.stroke();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const headers = model.headers;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const columns = model.columns;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const n = headers.length || 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const anglePer = 2*Math.PI/n;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Separators</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(let i=0;i&lt;n;i++){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const th=i*anglePer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.moveTo(cx + rInner*Math.cos(th), cy + rInner*Math.sin(th));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.lineTo(cx + rOuter*Math.cos(th), cy + rOuter*Math.sin(th));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Headers</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.font = `bold ${hdrSize}px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(let i=0;i&lt;n;i++){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const thetaMid=(i+0.5)*anglePer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rHdr=(rInner + rMid)/2;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const x = cx + rHdr*Math.cos(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const y = cy + rHdr*Math.sin(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rot = rotClamp(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>wrapTextCanvas(headers[i]||'', x, y, Math.max(14, Math.floor(wrapWidth*0.6)), Math.round(hdrSize*1.2), 'center', rot);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Items</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.font = `${itmSize}px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(let i=0;i&lt;n;i++){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const thetaMid=(i+0.5)*anglePer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rTxt=(rMid + rOuter)/2;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const x = cx + rTxt*Math.cos(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const y = cy + rTxt*Math.sin(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rot = rotClamp(thetaMid);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const list = columns[i]?.items || [];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const show = (maxItems===Infinity ? list : list.slice(0,maxItems));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const txt = show.map(v=&gt;'• '+v).join(' ');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>wrapTextCanvas(txt, x, y, wrapWidth, Math.round(itmSize*1.15), 'center', rot);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(maxItems !== Infinity &amp;&amp; list.length &gt; maxItems){</p>
+<p class="p1"><span class="Apple-converted-space">          </span>wrapTextCanvas(`(+${list.length - maxItems} more)`, x, y + Math.round(itmSize*1.2), wrapWidth, Math.round(itmSize*1.15), 'center', rot);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Summary</p>
+<p class="p1"><span class="Apple-converted-space">      </span>summary.textContent = `Segments: ${headers.length} | Total items: ${columns.reduce((a,c)=&gt;a+c.items.length,0)}`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try { canvas.toDataURL('image/png'); logOK('Rendered OK.'); } catch(e){ logErr('Canvas export blocked: '+(e.message||e)); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Actions</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btnTest.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const model = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>headers: ['Demographic','Strengths','Needs','Goals'],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>columns: [</p>
+<p class="p1"><span class="Apple-converted-space">          </span>{header:'Demographic', items:['Age: 12','Sex: M','Grade: 6']},</p>
+<p class="p1"><span class="Apple-converted-space">          </span>{header:'Strengths', items:['Curious','Detail-oriented','Team player']},</p>
+<p class="p1"><span class="Apple-converted-space">          </span>{header:'Needs', items:['Prefers visuals','Extended time','Quiet workspace']},</p>
+<p class="p1"><span class="Apple-converted-space">          </span>{header:'Goals', items:['Improve organization','Build math fluency','Increase participation']},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>log.innerHTML=''; msg.textContent=''; renderModel(model);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>btnParse.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>log.innerHTML=''; msg.textContent='';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const f = fileInput.files &amp;&amp; fileInput.files[0];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!f){ msg.textContent='Choose a CSV first.'; return; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fr = new FileReader();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>fr.onload = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const model = parseCSVText(fr.result);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>logOK('Parsed headers: ' + model.headers.join(', '));</p>
+<p class="p1"><span class="Apple-converted-space">          </span>renderModel(model);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} catch(e){ logErr(e.message||e); msg.textContent='Parse error: '+(e.message||e); }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>fr.onerror = () =&gt; { msg.textContent='Failed to read file.'; };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>fr.readAsText(f);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>headersInput.addEventListener('change', () =&gt; buildManualAreas(getHeaders()));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderBtn.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>log.innerHTML=''; msg.textContent='';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const headers = getHeaders();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(!headers.length){ msg.textContent='Enter at least one header.'; return; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cols = headers.map(h =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ta = Array.from(manualAreas.querySelectorAll('textarea')).find(t =&gt; t.dataset.header === h);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const items = (ta?.value || '').split('\n').map(s=&gt;s.trim()).filter(Boolean);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return { header:h, items };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderModel({headers, columns: cols});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>dlPng.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const a = document.createElement('a');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.href = canvas.toDataURL('image/png');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.download = 'whole_person_concentric.png';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.click();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Seed manual areas + demo content, render once on load</p>
+<p class="p1"><span class="Apple-converted-space">    </span>window.addEventListener('DOMContentLoaded', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const seedHeaders = getHeaders();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>buildManualAreas(seedHeaders);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const seed = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>'Demographic':['Age: 12','Sex: M','Grade: 6'],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>'Strengths':['Curious','Detail-oriented','Team player'],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>'Needs':['Prefers visuals','Extended time','Quiet workspace'],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>'Goals':['Improve organization','Build math fluency','Increase participation']</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for(const h of seedHeaders){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ta = Array.from(manualAreas.querySelectorAll('textarea')).find(t =&gt; t.dataset.header === h);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(ta &amp;&amp; seed[h]) ta.value = seed[h].join('\n');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const headers = getHeaders();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const cols = headers.map(h =&gt; ({header:h, items: seed[h] || [] }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderModel({headers, columns: cols});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
